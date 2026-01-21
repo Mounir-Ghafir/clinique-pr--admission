@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pré-admission Clinique</title>
+</head>
+<body>
+    <header>
+        <h1>Pré-admission Clinique</h1>
+        <p>Formulaire d'enregistrement des demandes de consultation</p>
+    </header>
+
+    <section id="form-section">
+        <h2>Nouvelle demande de consultation</h2>
+        <form id="demande-form">
+            <div>
+                <label for="nom">Nom *</label>
+                <input type="text" id="nom" name="nom" >
+            </div>
+
+            <div>
+                <label for="prenom">Prénom *</label>
+                <input type="text" id="prenom" name="prenom" >
+            </div>
+
+            <div>
+                <label for="telephone">Téléphone</label>
+                <input type="tel" id="telephone" name="telephone">
+            </div>
+
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div>
+                <label for="motif">Motif de la consultation *</label>
+                <input type="text" id="motif" name="motif">
+            </div>
+
+            <div>
+                <label for="date">Date souhaitée *</label>
+                <input type="date" id="date" name="date" >
+            </div>
+            <button type="submit">Ajouter la demande</button>
+        </form>
+    </section>
+
+    <section id="message-section" style="display: none">
+    </section>
+
+    <section id="liste-section">
+        <h2>Liste des demandes en attente</h2>
+        <p id="compteur-demandes">0 demande(s) enregistrée(s)</p>
+
+        <table id="table-demandes">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Téléphone</th>
+                    <th>Email</th>
+                    <th>Motif</th>
+                    <th>Date souhaitée</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="corps-tableau">
+            </tbody>
+        </table>
+        <div id="pagination">
+            <div id="info-pagination">
+                Page <span id="page-actuelle">1</span> / <span id="pages-totales">1</span>
+            </div>
+            <div id="navigation-pagination">
+                <button id="btn-precedent" disabled>Précédent</button>
+                <button id="btn-suivant" disabled>Suivant</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Système de pré-admission - Clinique © 2026</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
