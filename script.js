@@ -13,6 +13,8 @@ const pagesElement = document.getElementById("pages-totales")
 const message = document.getElementById("message-section")
 const counter = document.getElementById("compteur-demandes")
 
+
+
 let page = 1
 let pages
 let begin = 0
@@ -20,6 +22,7 @@ let end = 5
 let steps = 5
 let demandes = JSON.parse(localStorage.getItem("demandes")) || []
 let length = demandes.length
+
 
 
 form.addEventListener("submit", function(event) {
@@ -30,6 +33,8 @@ form.addEventListener("submit", function(event) {
 nextBtn.addEventListener("click", next)
 
 previousBtn.addEventListener("click", previous)
+
+
 
 function next() {
     page++
@@ -44,6 +49,15 @@ function previous() {
     end -= steps
     loadPage()
 }
+
+function loadPage() {
+    table.innerHTML = ''
+    for(let i = begin ; i < end ; i++) {
+        showDemandes(demandes[i])
+    }
+}
+
+
 
 function createId() {
     let id = crypto.randomUUID()
@@ -66,6 +80,21 @@ function addDemande() {
     loadPage()
     form.reset()
 }
+
+function deleteDemande(id) {
+    let index = demandes.findIndex(demande => demande.id === id)
+    demandes.splice(index,1)
+    length--
+    localStorage.setItem("demandes", JSON.stringify(demandes))
+    if (Math.ceil(demandes.length / steps) < pages) {
+        previous()
+    } else {
+        loadPage()
+    }
+    
+}
+
+
 
 function showDemandes(demande) {
 
@@ -112,25 +141,11 @@ function showDemandes(demande) {
     }
 }
 
-function loadPage() {
-    table.innerHTML = ''
-    for(let i = begin ; i < end ; i++) {
-        showDemandes(demandes[i])
-    }
+function demandesLength() {
+    counter.innerHTML = `${length} demande(s) enregistrée(s)`
 }
 
-function deleteDemande(id) {
-    let index = demandes.findIndex(demande => demande.id === id)
-    demandes.splice(index,1)
-    length--
-    localStorage.setItem("demandes", JSON.stringify(demandes))
-    if (Math.ceil(demandes.length / steps) < pages) {
-        previous()
-    } else {
-        loadPage()
-    }
-    
-}
+
 
 function checkForm() {
     message.innerHTML = ""
@@ -152,9 +167,6 @@ function checkForm() {
     },1500)
 }
 
-function demandesLength() {
-    counter.innerHTML = `${length} demande(s) enregistrée(s)`
-}
+
 
 loadPage()
-
