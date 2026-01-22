@@ -11,6 +11,7 @@ const nextBtn = document.getElementById("btn-suivant")
 const pageElement = document.getElementById("page-actuelle")
 const pagesElement = document.getElementById("pages-totales")
 const message = document.getElementById("message-section")
+const counter = document.getElementById("compteur-demandes")
 
 let page = 1
 let pages
@@ -18,6 +19,8 @@ let begin = 0
 let end = 5
 let steps = 5
 let demandes = JSON.parse(localStorage.getItem("demandes")) || []
+let length = demandes.length
+
 
 form.addEventListener("submit", function(event) {
     event.preventDefault()
@@ -59,7 +62,9 @@ function addDemande() {
     }
     demandes.push(demande)
     localStorage.setItem("demandes", JSON.stringify(demandes))
+    length++
     loadPage()
+    form.reset()
 }
 
 function showDemandes(demande) {
@@ -67,6 +72,8 @@ function showDemandes(demande) {
     if(demande === undefined) {
         return
     }
+
+    demandesLength()
 
     const tr = document.createElement("tr")
     tr.innerHTML += `
@@ -115,6 +122,7 @@ function loadPage() {
 function deleteDemande(id) {
     let index = demandes.findIndex(demande => demande.id === id)
     demandes.splice(index,1)
+    length--
     localStorage.setItem("demandes", JSON.stringify(demandes))
     if (Math.ceil(demandes.length / steps) < pages) {
         previous()
@@ -141,7 +149,11 @@ function checkForm() {
     message.style.display = "block"
     setTimeout(() => {
         message.style.display = "none"
-    },3000)
+    },1500)
+}
+
+function demandesLength() {
+    counter.innerHTML = `${length} demande(s) enregistrée(s)`
 }
 
 loadPage()
