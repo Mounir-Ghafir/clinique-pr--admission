@@ -86,7 +86,7 @@ function deleteDemande(id) {
     demandes.splice(index,1)
     length--
     localStorage.setItem("demandes", JSON.stringify(demandes))
-    if (Math.ceil(demandes.length / steps) < pages) {
+    if (Math.ceil(demandes.length / steps) < pages && page !== 1) {
         previous()
     } else {
         loadPage()
